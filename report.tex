@@ -298,7 +298,7 @@
         \vfill
         \begin{subfigure}[b]{\linewidth}
             \includegraphics[width=0.9\linewidth]{figures/Electoral_Vote_Candidate_Win.png}
-            \caption{Số phiếu Đại cử tri mà các ứng cử vien giành được}
+            \caption{Số phiếu Đại cử tri mà các ứng cử viên giành được}
         \end{subfigure}
         \caption{Kết quả chung cuộc của cuộc tranh cử Tổng thống Mỹ năm 2020}
     \end{figure}
@@ -399,6 +399,30 @@
         \centering
         \includegraphics[width=0.9\textwidth]{figures/County_Total_Percentage_Candidate_Win.png}
         \caption{Tỷ lệ thắng trên các hạt của từng ứng cử viên}
+    \end{figure}
+
+    \begin{figure}[h!]
+        \centering
+        \begin{subfigure}[b]{\textwidth}
+            \includegraphics[width=0.9\textwidth]{State_Percentage_GDP_Candidate.png}
+            \caption{Tỷ lệ đóng góp GDP tại các tiểu bang mà các ứng cử viên thắng}
+        \end{subfigure}
+        \vfill
+        \begin{subfigure}[b]{\linewidth}
+            \includegraphics[width=0.9\linewidth]{State_Percentage_Population_Candidate.png}
+            \caption{Tỷ lệ đóng góp dân số tại các tiểu bang mà các ứng cử viên thắng}
+        \end{subfigure}
+        \vfill
+        \begin{subfigure}[b]{\textwidth}
+            \includegraphics[width=0.9\linewidth]{County_Total_Percentage_Candidate_Win.png}
+            \caption{Tỷ lệ thắng trên các hạt của từng ứng cử viên}
+        \end{subfigure}
+        \vfill
+        \begin{subfigure}[b]{\textwidth}
+            \includegraphics[width=0.9\linewidth]{County_Percentage_Population_Candidate.png}
+            \caption{Tỷ lệ đóng góp dân số tại các hạt mà các ứng cử viên thắng}
+        \end{subfigure}
+        \caption{So sánh quy mô dân số và kinh tế tại các bang, hạt các ứng cử viên chiến thắng}
     \end{figure}
 
     \begin{figure}[h!]
@@ -621,33 +645,43 @@
     Cuối cùng, phần lớn các phương tiện truyền thông lớn dự đoán rằng Joe Biden sẽ thắng cử, điều này đã được xác nhận khi ông nhận được 306 phiếu đại cử tri so với 232 phiếu đại cử tri của Donald Trump. 
     Tuy nhiên, cuộc bầu cử được nhiều người coi là có tính cạnh tranh cao, với cả hai chiến dịch tranh cử khắc nghiệp về kết quả và kết quả cuối cùng không được xác định cho đến vài ngày sau ngày bầu cử.
 
-    \begin{figure}[h!]
-        \centering
-        \begin{subfigure}[b]{\textwidth}
-            \includegraphics[width=0.9\textwidth]{State_Percentage_GDP_Candidate.png}
-            \caption{Tỷ lệ đóng góp GDP tại các tiểu bang mà các ứng cử viên thắng}
-        \end{subfigure}
-        \vfill
-        \begin{subfigure}[b]{\linewidth}
-            \includegraphics[width=0.9\linewidth]{State_Percentage_Population_Candidate.png}
-            \caption{Tỷ lệ đóng góp dân số tại các tiểu bang mà các ứng cử viên thắng}
-        \end{subfigure}
-        \vfill
-        \begin{subfigure}[b]{\textwidth}
-            \includegraphics[width=0.9\linewidth]{County_Total_Percentage_Candidate_Win.png}
-            \caption{Tỷ lệ thắng trên các hạt của từng ứng cử viên}
-        \end{subfigure}
-        \vfill
-        \begin{subfigure}[b]{\textwidth}
-            \includegraphics[width=0.9\linewidth]{County_Percentage_Population_Candidate.png}
-            \caption{Tỷ lệ đóng góp dân số tại các hạt mà các ứng cử viên thắng}
-        \end{subfigure}
-        \caption{So sánh quy mô dân số và kinh tế tại các bang, hạt các ứng cử viên chiến thắng}
-    \end{figure}
 
     \section{Phân tích các yếu tố trong nhân khẩu học}
 
-    Dữ liệu ta sử dụng là 
+    \subsection{Xử lý dữ liệu}
+
+    Dữ liệu ta sử dụng là dữ liệu về tổng số phiếu phổ thông trên từng hạt cho từng ứng cử viên.
+    Tiếp theo là dữ liệu về nhân khẩu học được thu thập tại Mỹ vào năm 2017.
+
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.6\textwidth]{figures/President_Dataframe.png}
+        \caption{Dữ liệu về cuộc bầu cử tổng thống năm 2020 tại từng hạt}
+    \end{figure}
+
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.6\textwidth]{figures/Census_Dataframe.png}
+        \caption{Dữ liệu về nhân khẩu học được hoàn thành vào năm 2017}
+    \end{figure}
+
+    Ta sẽ tính tỷ lệ phiếu bầu của các ứng cử viên tại từng hạt:
+
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.6\textwidth]{figures/President_Dataframe_Rep_Dem_Percentage.png}
+        \caption{Tỷ lệ phiếu bầu của các ứng cử viên tại từng hạt}
+    \end{figure}
+
+    Ta chuẩn hóa dữ liệu nhân khẩu học bằng min-max scaling, sau đó ta sẽ kết hợp bảng dữ liệu phiếu bầu và bảng các yếu tố nhân khẩu học:
+
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.6\textwidth]{figures/President_Normalized_Demographic_Merged_Dataframe.png}
+        \caption{Kết hợp bảng dữ liệu phiếu bầu và các yếu tố nhân khẩu học}
+    \end{figure}
+
+    \subsection{Xây dựng mô hình}
 
     Ta sẽ phân tích các yếu tố nhân khẩu học dựa trên xây dựng trên các mô hình học máy.
     Mục tiêu chính của ta khi xây dựng một mô hình học máy để dự đoán các ứng viên đảng Cộng hòa có thể thắng cuộc ở hạt nào mà ta sẽ sử dụng mô hình học máy để xem nhân tố nhân khẩu học nào quan trọng ảnh hưởng đến kết quả chiến thắng tại các hạt.
@@ -655,9 +689,24 @@
     Loại mô hình thứ nhất là mô hình hồi quy dự đoán tỷ lệ phiếu bầu của ứng viên đảng Cộng hòa tại một hạt.
     Loại mô hình thứ hai là mô hình phân loại dự đoán liệu ứng viên đảng Cộng hòa có thắng tại hạt đó hay không.
 
-    Ở loại mô hình thứ nhất, ta sử dụng 3 mô hình, mô hình thứ nhất là mô hình đơn giản, ta chỉ tính trung bình tỷ lệ được bỏ phiếu tại tất cả các hạt.
-    Mô hình thứ hai là sử dụng mô hình hồi quy tuyến tính, mô hình thứ ba là mô hình XGBoost.
+    Ở loại mô hình thứ nhất, ta sử dụng 3 mô hình:
 
+    \begin{itemize}
+        \item Mô hình đơn giản, ta chỉ tính trung bình tỷ lệ được bỏ phiếu tại tất cả các hạt.
+        \item Mô hình thứ hai là sử dụng mô hình hồi quy tuyến tính.
+        \item mô hình thứ ba là mô hình XGBoost.
+    \end{itemize}
+
+    Ở loại mô hình thứ hai, ta sử dụng 4 mô hình:
+
+    \begin{itemize}
+        \item Logistic Regression
+        \item Random Forest
+        \item Decision Tree
+        \item XGBoost Regression
+    \end{itemize}
+
+    \subsubsection{Mô hình hồi quy}
 
 
 
